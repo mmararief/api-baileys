@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatsApp QR Code</title>
+  </head>
+  <body>
+    <h1>Scan QR Code to Login</h1>
+    <div id="qrcode"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      socket.on("qr", (qrDataUrl) => {
+        console.log("QR Code received", qrDataUrl);
+        const qrCodeElement = document.getElementById("qrcode");
+        qrCodeElement.innerHTML = `<img src="${qrDataUrl}" alt="QR Code">`;
+      });
+    </script>
+  </body>
+</html>
