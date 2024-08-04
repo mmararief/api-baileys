@@ -159,6 +159,24 @@ app.post('/send-invoice', async (req, res) => {
   }
 });
 
+app.post('/success-order', async (req, res) => {
+  const { id_transaksi, tanggal, via, nama, whatsapp, alamat, metode_pembayaran, status, total, details } = req.body;
+  const message = `Hai ${nama}, pesanan Anda sudah selesai. terima kasih sudah membeli di toko kami.`;
+
+
+      try {
+
+
+        await sock.sendMessage(`${whatsapp}@s.whatsapp.net`, { text: message });
+       
+        res.status(200).send('Message sent');
+      } catch (error) {
+        res.status(500).json({ error: 'Failed to send Message', details: error.message });
+      }
+    });
+
+
+
 app.post('/webhook', (req, res) => {
     const data = req.body;
     console.log('Received webhook:', data);
